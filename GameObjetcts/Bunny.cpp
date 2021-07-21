@@ -25,7 +25,7 @@ Bunny::Bunny(int bX, int bY) : GameObject(2, "pink") {
         std::vector<double> weightSet;
         for (int k = 0; k < 8; k++) {
 
-            weightSet.push_back(((double) rand() / RAND_MAX) *  5 - 2.0);
+            weightSet.push_back(((double) rand() / RAND_MAX) *  10 - 5.0);
 
         }
         weights1.push_back(weightSet);
@@ -37,7 +37,7 @@ Bunny::Bunny(int bX, int bY) : GameObject(2, "pink") {
         std::vector<double> weightSet;
         for (int k = 0; k < 4; k++) {
 
-            weightSet.push_back(((double) rand() / RAND_MAX) * 5 - 2.0);
+            weightSet.push_back(((double) rand() / RAND_MAX) * 10 - 5.0);
 
         }
         weights2.push_back(weightSet);
@@ -46,8 +46,8 @@ Bunny::Bunny(int bX, int bY) : GameObject(2, "pink") {
 
     x = bX;
     y = bY;
-    hunger = 20;
-    thirst = 15;
+    hunger = 30;
+    thirst = 20;
     fitness = 0;
     alive = true;
 
@@ -103,5 +103,98 @@ int Bunny::getOutput(std::vector<double> spacesNear) {
     }
     
     return action;
+
+}
+
+void Bunny::reset(int bX, int bY) {
+
+    x = bX;
+    y = bY;
+    hunger = 30;
+    thirst = 20;
+    fitness = 0;
+    alive = true;
+
+}
+
+void Bunny::repredouce(Bunny bunny1, Bunny bunny2) {
+
+    int cutoff = rand() % 5 + 1;
+    int cutoff2 = rand() % (10 - cutoff) + cutoff;
+
+    for (int k = 0; k < cutoff; k++) {
+
+        std::vector<double> newWeightSet = bunny1.getWeights1()[k];
+        weights1[k] = newWeightSet;
+
+    }
+
+    for (int k = cutoff; k < cutoff2; k++) {
+
+        std::vector<double> newWeightSet = bunny2.getWeights1()[k];
+        weights1[k] = newWeightSet;
+
+    }
+
+    for (int k = cutoff2; k < weights1.size(); k++) {
+
+        std::vector<double> newWeightSet = bunny1.getWeights1()[k];
+        weights1[k] = newWeightSet;
+
+    }
+
+    cutoff = rand() % 4 + 1;
+    cutoff2 = rand() % (8 - cutoff) + cutoff;
+
+    for (int k = 0; k < cutoff; k++) {
+
+        std::vector<double> newWeightSet = bunny2.getWeights2()[k];
+        weights2[k] = newWeightSet;
+
+    }
+
+    for (int k = cutoff; k < cutoff2; k++) {
+
+        std::vector<double> newWeightSet = bunny1.getWeights2()[k];
+        weights2[k] = newWeightSet;
+
+    }
+
+    for (int k = cutoff2; k < weights2.size(); k++) {
+
+        std::vector<double> newWeightSet = bunny2.getWeights2()[k];
+        weights2[k] = newWeightSet;
+
+    }
+
+    for (int i = 0; i < weights1.size(); i++) {
+
+        for (int k = 0; k < weights1[i].size(); k++) {
+
+            double mutate = ((double) rand() / RAND_MAX) * 100;
+            if (mutate < 5) {
+
+                weights1[i][k] = ((double) rand() / RAND_MAX) *  10 - 5.0;
+
+            }
+
+        }
+
+    }
+
+    for (int i = 0; i < weights2.size(); i++) {
+
+        for (int k = 0; k < weights2[i].size(); k++) {
+
+            double mutate = ((double) rand() / RAND_MAX) * 100;
+            if (mutate < 5) {
+
+                weights2[i][k] = ((double) rand() / RAND_MAX) *  10 - 5.0;
+
+            }
+
+        }
+
+    }
 
 }

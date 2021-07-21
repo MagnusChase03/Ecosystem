@@ -37,11 +37,19 @@ class Bunny : public GameObject {
 
         int getHunger() {return hunger;}
         int getThirst() {return thirst;}
+        int getFitness() {return fitness;}
         void setHunger(int nX) {hunger = nX;}
         void setThirst(int nY) {thirst = nY;}
+        void setFitness(int nX) {fitness = nX;}
+        
         bool isAlive() {return alive;}
         void setAlive(bool live) {alive = live;}
 
+        void reset(int bX, int bY);
+
+        std::vector<std::vector<double>> getWeights1() {return weights1;}
+        std::vector<std::vector<double>> getWeights2() {return weights2;}
+        void repredouce(Bunny bunny1, Bunny bunny2);
 
 };
 
