@@ -17,6 +17,9 @@ class Window {
         std::vector<std::vector<GameObject>> board;
         std::vector<Bunny> bunnies;
         bool run = false;
+        int gen;
+
+        bool bunnyAlive();
 
     public:
         Window();

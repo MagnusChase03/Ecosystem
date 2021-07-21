@@ -15,7 +15,7 @@ int main() {
 
         window->events();
 
-        if (ticks == 24) {
+        if (ticks == 12) {
         
             window->update();
             window->render();
